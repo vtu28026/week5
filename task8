@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool matches(string word, string pattern) {
+        vector<int> mapWord(256, -1);
+        vector<int> mapPattern(256, -1);
+
+        for (int i = 0; i < word.size(); i++) {
+            char w = word[i];
+            char p = pattern[i];
+
+            if (mapWord[w] == -1 && mapPattern[p] == -1) {
+                mapWord[w] = p;
+                mapPattern[p] = w;
+            }
+            else {
+                if (mapWord[w] != p || mapPattern[p] != w) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    vector<string> findAndReplacePattern(
+        vector<string>& words,
+        string pattern
+    ) {
+        vector<string> answer;
+
+        for (string word : words) {
+            if (matches(word, pattern)) {
+                answer.push_back(word);
+            }
+        }
+
+        return answer;
+    }
+};
