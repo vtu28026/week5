@@ -1,0 +1,25 @@
+vector<int> maxSubarray(vector<int> arr) {
+    int maxSub = arr[0];
+    int current = arr[0];
+
+    for (int i = 1; i < arr.size(); i++) {
+        current = max(arr[i], current + arr[i]);
+        maxSub = max(maxSub, current);
+    }
+
+    int maxNonContiguous = 0;
+    int largest = arr[0];
+
+    for (int x : arr) {
+        if (x > 0) {
+            maxNonContiguous += x;
+        }
+        largest = max(largest, x);
+    }
+
+    if (maxNonContiguous == 0) {
+        maxNonContiguous = largest;
+    }
+
+    return {maxSub, maxNonContiguous};
+}
